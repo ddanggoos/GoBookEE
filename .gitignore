@@ -1,0 +1,51 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea/
+*.iml
+target/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+/src/main/resources/config/*.properties
+
+.dbeaver
+Scripts
+
+*.png
+!default.png
+!error.png
+!logo.png
+!sad.png
+!walk.png
+!bike.png
+!car.png
+!train.png
+!airplane.png
+!rocket.png
+*.jpg
+*.war

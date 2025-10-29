@@ -1,0 +1,367 @@
+.form-container{
+}
+.form-container a{
+    text-decoration: none;
+    color: black;
+}
+.book-card-head{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 15px 30px;
+}
+.book-card{
+    border-radius: 30px;
+    margin: 35px 20px;
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 4px 12px;
+}
+
+.book-card-row{
+    justify-content: center;
+}
+
+.profile-card-row{
+    justify-content: center;
+    align-items: center;
+}
+
+.book-card-scroll{
+    margin: 35px 20px;
+}
+.book-card-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    transition: background-color 0.5s ease;
+    position: relative;
+}
+
+.book-card-img>img{
+    width: 70%;
+    max-width: 130px;
+    box-shadow: rgba(0, 0, 0, 0.5) 10px 10px 20px;
+}
+.book-card-img > i {
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 24px;
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 150px; /* 카드 하나의 너비 */
+    height: 350px !important;
+    border: 0 !important;
+}
+.book-card-img2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    transition: background-color 0.5s ease;
+    position: relative;
+}
+
+.book-card-img2>img{
+    height: 90%;
+    max-width: 130px;
+    box-shadow: rgba(0, 0, 0, 0.5) 10px 10px 20px;
+}
+.study-card-img2>img{
+    height: 100%;
+}
+
+.book-card-img2 .medal-icon {
+    position: absolute;
+    top:-10px;
+    left: 5px;
+    font-size: 24px; /* 아이콘 크기 조절 */
+    z-index: 10; /* 이미지보다 위에 위치 */
+}
+
+
+.profile-img{
+    border-radius: 30px;
+    position: relative;
+}
+
+.profile-img>img{
+    width: 100%;
+    max-width: 130px;
+}
+
+
+.book-card-t2 {
+    font-size: 16px !important;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card-c2 {
+    font-size: 12px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 2줄 제한 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #333333 !important;
+    text-overflow: ellipsis;
+    font-weight: lighter !important;
+    line-height: 1.4em;
+    max-height: 2.8em; /* 2줄 x 줄높이 */
+}
+
+.book-card-c3 {
+    color: #50A65D !important;
+    font-size: 14px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card-c4 {
+    font-size: 14px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.book-card-c4>i{
+    font-size: 15px !important;
+}
+.book-card-content div{
+    padding: 0 15px;
+    font-size: clamp(14px, 2vw, 16px);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.book-card-title{
+    margin-bottom: 10px;
+    font-size: clamp(18px, 2.5vw, 24px) !important;
+    font-weight: bold;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.book-card-desc{
+    color: #999999;
+    margin-bottom: 10px;
+    font-size: clamp(12px, 1.8vw, 14px);
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.book-card-review {
+    align-items: center;
+}
+.book-card-review>span{
+    text-decoration: underline;
+}
+.book-card-review i{
+    color: #50A65D;
+}
+
+.book-detail-img{
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+}
+.book-detail-img>img{
+    max-height: 440px;
+    box-shadow: rgba(0, 0, 0, 0.5) 10px 10px 20px;
+}
+.book-detail-content{
+    padding: 30px 30px;
+}
+.book-detail-row hr{
+    height: 8px;
+    border:0;
+    background-color: #F9F9F9;
+    opacity: 100%;
+    margin: 0;
+}
+.book-detail-title{
+    font-size: clamp(18px, 2vw, 20px);
+    font-weight: bold;
+    line-height: 30px;
+}
+.book-detail-info{
+    font-size: clamp(12px, 2vw, 14px);
+    color:#AFAFAF;
+    margin-bottom: 23px;
+}
+.book-detail-info .author{
+    color: black;
+}
+.book-detail-icon div{
+    width: 25px;
+    margin-left: 22px;
+}
+.book-detail-icon div i{
+    font-size: 25px;
+    color: #50A65D;
+}
+.book-detail-sub-content{
+    font-size: 20px;
+    padding: 20px 30px;
+}
+
+.book-detail-sub-content>div{
+    margin-bottom: 20px;
+}
+.book-detail-review{
+    padding: 20px 30px;
+}
+.review-profile>img,i{
+    margin : 16px 0;
+    width: 30px;
+    font-size: 30px;
+}
+.review-meta-nick{
+    font-size: 14px;
+    color: black;
+}
+.review-meta{
+    font-size: 12px;
+    color: #AFAFAF;
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.review-content{
+    padding: 15px 35px;
+    white-space: normal; /* 텍스트 줄바꿈 허용 */
+    word-wrap: break-word; /* 긴 단어 줄바꿈 */
+    overflow-wrap: break-word; /* 최신 브라우저용 줄바꿈 */
+}
+.review-stats{
+    padding: 20px 0;
+}
+.review-stats i{
+    font-size: 20px;
+    margin-right: 5px;
+}
+.review-stats span{
+    font-size: 20px;
+    margin-right: 15px;
+}
+.sort{
+    background-color: #50A65D;
+    padding: 8px 16px;
+    border-radius: 50px;
+}
+
+#order-by{
+    background-color: #50A65D;
+    border:0;
+    color: white;
+}
+#order-by:focus{
+    outline:none !important;
+    box-shadow:none !important;
+}
+.review-empty button{
+    background-color: #50A65D;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border:0;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.book-card {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.book-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 반투명 검정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.book-overlay .overlay-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overlay-buttons i { margin-right: 20px}
+.overlay-buttons button {
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 11;
+    margin: 5px;
+    border-radius: 50px;
+    border: 0;
+    background-color: #50A65D;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 60px;
+}
+
+.scroll-container2 {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 1rem; /* 묶음 간 간격 */
+    padding: 1rem;
+    scroll-snap-type: x mandatory; /* 선택적: 스냅 스크롤 */
+}
+
+.book-group {
+    flex: 0 0 auto;
+    width: 490px; /* 카드 하나가 300px일 경우 3개 = 900px (여백 포함해서 조절 가능) */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    scroll-snap-align: start; /* 선택적: 스냅 시작점 */
+    text-decoration: none;
+    padding: 10px;
+}
+
+/* 선택적: 스크롤바 꾸미기 */
+.scroll-container2::-webkit-scrollbar {
+    height: 8px;
+}
+.scroll-container2::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
