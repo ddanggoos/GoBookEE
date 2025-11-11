@@ -1,0 +1,103 @@
+name: Deploy GoBookEE to Tomcat
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build WAR file
+        run: mvn clean package -DskipTests
+
+      - name: Build Docker image
+        run: |
+          # Dockerfile이 있는 경우
+          if [ -f "Dockerfile" ]; then
+            docker build -t gobookee:${{ github.sha }} .
+          else
+            # 기본 톰캣 이미지에 WAR 파일 복사
+            docker build -t gobookee:${{ github.sha }} - <<EOF
+          FROM tomcat:10.1-jdk17-openjdk-slim
+          COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+          EXPOSE 8080
+          CMD ["catalina.sh", "run"]
+          EOF
+          fi
+
+       - name: Deploy to server
+         env:
+           SERVER_HOST: ${{ secrets.SERVER_HOST }}
+           SERVER_USER: ${{ secrets.SERVER_USER }}
+           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        run: |
+          # SSH 키 설정
+          mkdir -p ~/.ssh
+          echo "$SERVER_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
+
+          # 서버에 Docker 이미지 전송 및 배포
+          docker save gobookee:${{ github.sha }} | ssh $SERVER_USER@$SERVER_HOST 'docker load'
+
+           ssh $SERVER_USER@$SERVER_HOST << 'EOF'
+             # 기존 컨테이너 중지 및 제거
+             docker stop gobookee-app 2>/dev/null || true
+             docker rm gobookee-app 2>/dev/null || true
+             
+             # 새 컨테이너 실행 (DB 설정은 db.properties 파일 사용)
+             docker run -d \
+               --name gobookee-app \
+               -p 8080:8080 \
+               -v gobookee-uploads:/usr/local/tomcat/webapps/ROOT/resources/upload \
+               -v gobookee-logs:/usr/local/tomcat/logs \
+               --restart unless-stopped \
+               gobookee:${{ github.sha }}
+               
+             # 정리
+             docker image prune -f
+           EOF
+
+      - name: Health check
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        run: |
+          # SSH 키 설정
+          mkdir -p ~/.ssh
+          echo "$SERVER_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
+
+          # 헬스 체크
+          for i in {1..30}; do
+            if curl -f http://$SERVER_HOST:8080/; then
+              echo "Deployment successful!"
+              exit 0
+            fi
+            echo "Waiting for deployment... ($i/30)"
+            sleep 10
+          done
+          echo "Deployment failed - health check timeout"
+          exit 1
