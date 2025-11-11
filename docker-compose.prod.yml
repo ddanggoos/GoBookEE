@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  gobookee-app:
+    image: gobookee:latest
+    container_name: gobookee-app
+    ports:
+      - "8080:8080"
+    volumes:
+      # 업로드 파일 영구 저장
+      - gobookee-uploads:/usr/local/tomcat/webapps/ROOT/resources/upload
+      # 로그 파일 저장
+      - gobookee-logs:/usr/local/tomcat/logs
+    restart: unless-stopped
+    networks:
+      - gobookee-network
+
+  # Nginx 리버스 프록시 (선택사항)
+  nginx:
+    image: nginx:alpine
+    container_name: gobookee-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - gobookee-app
+    restart: unless-stopped
+    networks:
+      - gobookee-network
+
+volumes:
+  gobookee-uploads:
+    driver: local
+  gobookee-logs:
+    driver: local
+
+networks:
+  gobookee-network:
+    driver: bridge
